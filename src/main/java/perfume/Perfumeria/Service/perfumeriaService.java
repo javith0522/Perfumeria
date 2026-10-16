@@ -3,8 +3,8 @@ package perfume.Perfumeria.Service;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import perfume.Perfumeria.model.detalleOrden;
-import perfume.Perfumeria.model.orden;
+import perfume.Perfumeria.model.DetalleOrden;
+import perfume.Perfumeria.model.Orden;
 import perfume.Perfumeria.model.perfume;
 import perfume.Perfumeria.repository.ordenRepository;
 import perfume.Perfumeria.repository.perfumeRepository;
@@ -20,22 +20,22 @@ public class perfumeriaService {
     private ordenRepository ordenRepo;
 
     @Transactional
-    public orden realizarVentaCompleta(orden nuevaOrden) {
+    public Orden realizarVentaCompleta(Orden nuevaOrden) {
         double totalCalculado = 0;
 
-        for (detalleOrden detalle : nuevaOrden.getDetalles()) {
+        for (DetalleOrden detalle : nuevaOrden.getDetalles()) {
             perfume p = perfumeRepo.findById(detalle.getPerfume().getId())
                     .orElseThrow(() -> new RuntimeException("Perfume no encontrado"));
 
-            if (p.getStock() < detalle.get_cantidad()) {
+            if (p.getStock() < detalle.getCantidad()) {
                 throw new RuntimeException("No hay stock suficiente de: " + p.getNombre());
             }
 
 
-            p.setStock(p.getStock() - detalle.get_cantidad());
+            p.setStock(p.getStock() - detalle.getCantidad());
             perfumeRepo.save(p);
 
-            totalCalculado += p.getPrecio() * detalle.get_cantidad();
+            totalCalculado += p.getPrecio() * detalle.getCantidad();
         }
 
         nuevaOrden.setTotal(totalCalculado);

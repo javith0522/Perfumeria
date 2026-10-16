@@ -1,11 +1,10 @@
 package perfume.Perfumeria.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import perfume.Perfumeria.model.orden;
-import org.springframework.stereotype.Repository;
+import perfume.Perfumeria.model.Orden;
 
 import java.util.List;
 
-public interface ordenRepository extends JpaRepository<orden,Integer> {
-    List<orden>findByClienteId(Long usuarioId);
+public interface ordenRepository extends JpaRepository<Orden,Integer> {
+    List<Orden>findByClienteId(Long usuarioId);
 }

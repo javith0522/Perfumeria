@@ -96,4 +96,52 @@ public class perfumeController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<perfume> actualizar(@PathVariable Long id, @RequestBody perfume datos) {
+        return  repo.findById(id)
+                .map(p -> {
+                    p.setNombre(datos.getNombre());
+                    p.setMarca(datos.getMarca());
+                    p.setGenero(datos.getGenero());
+                    p.setCategoria(datos.getCategoria());
+                    p.setDescripcion(datos.getDescripcion());
+                    p.setPrecio(datos.getPrecio());
+                    p.setStock(datos.getStock());
+                    p.setImagen(datos.getImagen());
+                    p.setSeccion(datos.getSeccion());
+                    p.setIntensidad(datos.getIntensidad());
+                    p.setOcasion(datos.getOcasion());
+                    p.setNotasOlfativas(datos.getNotasOlfativas());
+                    return ResponseEntity.ok(repo.save(p));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<?> eliminar(@PathVariable Long id) {
+        if (!repo.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        repo.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    public static  class actualizarStockRequest {
+        private Integer stock;
+        public Integer getStock() {
+            return stock;
+        }
+        public void setStock(Integer stock) {this.stock = stock;}
+    }
+
+    @PatchMapping("/{id}/stock")
+    public ResponseEntity<perfume> actualizarStock(@PathVariable Long id, @RequestBody actualizarStockRequest request) {
+        return  repo.findById(id)
+                .map(p -> {
+                    p.setStock(request.getStock());
+                    return ResponseEntity.ok(repo.save(p));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
 }

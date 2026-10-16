@@ -3,8 +3,7 @@ package perfume.Perfumeria.Service;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import perfume.Perfumeria.model.usuario;
+import perfume.Perfumeria.model.Usuario;
 import perfume.Perfumeria.repository.usuarioRepostery;
 
 @Service
@@ -14,7 +13,7 @@ public class usuarioService {
     private usuarioRepostery usuarioRepo;
 
     @Transactional
-    public usuario registrarUsuario( usuario nuevoUsuario){
+    public Usuario registrarUsuario(Usuario nuevoUsuario){
 
         if(usuarioRepo.findByEmail(nuevoUsuario.getEmail()).isPresent()){
             throw new RuntimeException("Usuario ya existe");
@@ -23,7 +22,7 @@ public class usuarioService {
         return usuarioRepo.save(nuevoUsuario);
     }
 
-    public usuario login(String email, String password){
+    public Usuario login(String email, String password){
         return usuarioRepo.findByEmailAndPassword(email,password).orElseThrow(() -> new  RuntimeException("Correo o contraseña incorreta"));
 
     }

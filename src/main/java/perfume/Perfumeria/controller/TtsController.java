@@ -50,7 +50,7 @@ public class TtsController {
         System.out.println("ElevenLabs status: " + response.statusCode());
 
         if (response.statusCode() != 200) {
-            // Si hay error, imprimimos el cuerpo para saber qué pasó (ej: falta de saldo o API Key mal)
+
             System.out.println("Error body: " + new String(response.body()));
             return ResponseEntity.status(response.statusCode()).build();
         }

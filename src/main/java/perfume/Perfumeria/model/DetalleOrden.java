@@ -5,23 +5,27 @@ import lombok.Data;
 
 @Entity
 @Data
-
-public class detalleOrden {
+@Table(name = "detalle_orden")
+public class DetalleOrden {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "perfume_id")
     private perfume perfume;
 
-    private Integer _cantidad;
+    private Integer cantidad;
     private Double precioUnitario;
 
-    @ManyToOne
-    private perfume producto;
 
     @ManyToOne
     @JoinColumn(name = "orden_id")
-    private orden orden;
+    private Orden orden;
+
+    @Transient
+    public double getSubtotal() {
+        return  precioUnitario * cantidad;
+    }
 }

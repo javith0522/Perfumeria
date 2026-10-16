@@ -1,10 +1,9 @@
 package perfume.Perfumeria.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import perfume.Perfumeria.Service.usuarioService;
-import perfume.Perfumeria.model.usuario;
+import perfume.Perfumeria.model.Usuario;
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -15,12 +14,12 @@ public class usuarioController {
     private usuarioService _serivice;
 
     @PostMapping("/registro")
-    public usuario crearUsario(@RequestBody usuario user){
+    public Usuario crearUsario(@RequestBody Usuario user){
         return _serivice.registrarUsuario(user);
     }
 
     @PostMapping("/login")
-    public usuario login(@RequestBody LoginRequest datos){
+    public Usuario login(@RequestBody LoginRequest datos){
         return  _serivice.login(datos.getEmail(), datos.getPassword());
     }
 

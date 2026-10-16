@@ -1,21 +1,19 @@
 package perfume.Perfumeria.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "perfumes")
 public class perfume {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nombre;
     private String marca;
+    private String genero;
     private String categoria;
     private String descripcion;
     private double precio;
@@ -26,7 +24,7 @@ public class perfume {
     private String referenciaArtista;
     private String beneficioTecnico;
     private Integer descuento;
-
+    private Integer presentacionMl;
     private String intensidad;
     private String ocasion;
     private String notasOlfativas;
