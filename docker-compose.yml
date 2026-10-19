@@ -1,0 +1,42 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: perfumeria_db
+    environment:
+      MYSQL_DATABASE: perfumeria
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - perfumeria-net
+
+  app:
+    build: .
+    container_name: perfumeria_app
+    ports:
+      - "8081:8081"
+    environment:
+      - SERVER_PORT=8081
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/perfumeria?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=false
+      - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY}
+      - NOIR_ADMIN_USERNAME=${NOIR_ADMIN_USERNAME}
+      - NOIR_ADMIN_PASSWORD=${NOIR_ADMIN_PASSWORD}
+      - WOMPI_LLAVE_PRIVADA=${WOMPI_LLAVE_PRIVADA}
+      - WOMPI_API_URL=${WOMPI_API_URL}
+    depends_on:
+      - db
+    networks:
+      - perfumeria-net
+
+volumes:
+  mysql_data:
+
+networks:
+  perfumeria-net:
+    driver: bridge
