@@ -29,6 +29,9 @@ public class Inventario {
     @Column(name = "stock", nullable = false)
     private Integer stock = 0;
 
+    @Column(name = "costo_promedio", nullable = false)
+    private BigDecimal costoPromedio = BigDecimal.ZERO;
+
     @Column(name = "stock_minimo", nullable = false)
     private Integer stockMinimo = 5;
 

@@ -19,6 +19,8 @@ public class DetalleOrden {
     private Integer cantidad;
     private Double precioUnitario;
 
+    private Double costoUnitario;
+
 
     @ManyToOne
     @JoinColumn(name = "orden_id")

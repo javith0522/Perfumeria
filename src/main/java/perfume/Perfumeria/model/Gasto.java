@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 })
 @Getter
 @Setter
-public class Gastos {
+public class Gasto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
