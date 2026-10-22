@@ -14,7 +14,7 @@ public interface RegistroAuditoriaRepository extends Repository<RegistroAduitori
 
     @Query("""
 
-            select r from RegistroAuditoria r
+            select r from RegistroAduitoria r
               where (:usuario is null or  r.usuario = :usuario)
               and (:accion is null or r.accion = :accion)
               and r.fechaHora between :desde and :hasta

@@ -6,7 +6,7 @@ import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 import perfume.Perfumeria.enums.TipoMovimiento;
 import perfume.Perfumeria.model.MovimientoInventario;
-import org.springframework.data.domain.Pageable;
+
 
 
 import java.time.LocalDateTime;
@@ -31,7 +31,7 @@ order by m.fechaHora desc
                                       @Param("desde")LocalDateTime desde,
                                       @Param("hasta") LocalDateTime hasta);
 
-    List<MovimientoInventario> findByTipoMovimientoInAndFechaHoraBetween(TipoMovimiento tipo, LocalDateTime desde, LocalDateTime hasta);
+    List<MovimientoInventario> findByTipoInAndFechaHoraBetween(TipoMovimiento tipo, LocalDateTime desde, LocalDateTime hasta);
 
     @Query("""
 select m.tipo, coalesce(sum(m.cantidad), 0)

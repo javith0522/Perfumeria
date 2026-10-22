@@ -2,7 +2,6 @@ package perfume.Perfumeria.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Immutable;
 import perfume.Perfumeria.enums.TipoMovimiento;
 
