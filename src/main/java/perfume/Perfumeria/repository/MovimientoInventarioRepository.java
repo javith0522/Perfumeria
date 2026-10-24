@@ -1,6 +1,7 @@
 package perfume.Perfumeria.repository;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
@@ -29,7 +30,8 @@ order by m.fechaHora desc
     Page<MovimientoInventario> buscar(@Param("perfumeId") Long perfumeId,
                                       @Param("tipo")TipoMovimiento tipo,
                                       @Param("desde")LocalDateTime desde,
-                                      @Param("hasta") LocalDateTime hasta);
+                                      @Param("hasta") LocalDateTime hasta,
+                                      Pageable pageable);
 
     List<MovimientoInventario> findByTipoInAndFechaHoraBetween(TipoMovimiento tipo, LocalDateTime desde, LocalDateTime hasta);
 
@@ -41,4 +43,11 @@ group by m.tipo
 """)
     List<Object[]> totalesPorTipo(@Param("perfumeId") Long perfume);
 
+    List<MovimientoInventario> findTop10ByPerfumeIdOrderByFechaHoraDesc(Long perfume);
+
+    @Query("""
+select max(m.fechaHora) from MovimientoInventario m 
+where m.perfume.id = :perfumeId and m.tipo = :tipo
+""")
+    Optional<LocalDateTime> ultimaFechaPorTipo(@Param("perfumeId") Long perfumeId, @Param("tipo") TipoMovimiento tipo);
 }
