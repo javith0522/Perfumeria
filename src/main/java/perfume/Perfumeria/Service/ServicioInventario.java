@@ -68,7 +68,7 @@ public class ServicioInventario {
     }
 
     @Transactional
-    private void registrarStockIniciarl(Inventario inventario, int cantidad, BigDecimal costoUnitario, String usuario){
+    public void registrarStockIniciarl(Inventario inventario, int cantidad, BigDecimal costoUnitario, String usuario){
         aplicar(inventario, TipoMovimiento.ENTRADA, cantidad, costoUnitario, "Stock inicial ", null, null, usuario);
     }
 

@@ -39,6 +39,6 @@ public class Inventario {
 
     @ManyToOne
     @JoinColumn(name = "perfume_id", nullable = false, unique = true)
-    private perfume perfume;
+    private Perfume perfume;
 
 }

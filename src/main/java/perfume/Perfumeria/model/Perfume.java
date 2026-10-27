@@ -6,7 +6,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "perfumes")
-public class perfume {
+public class Perfume {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +29,10 @@ public class perfume {
     private String ocasion;
     private String notasOlfativas;
 
-    public perfume() {
+    public Perfume() {
     }
 
-    public perfume(String nombre, String marca, Double precio) {
+    public Perfume(String nombre, String marca, Double precio) {
         this.nombre = nombre;
         this.marca = marca;
         this.precio = precio;

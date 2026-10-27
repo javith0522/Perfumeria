@@ -5,13 +5,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.data.domain.Pageable;
 import perfume.Perfumeria.Dtos.*;
 import perfume.Perfumeria.enums.EstadoStock;
 import perfume.Perfumeria.enums.TipoMovimiento;
 import perfume.Perfumeria.execption.RecursoNoEncontradoException;
 import perfume.Perfumeria.model.Inventario;
-import perfume.Perfumeria.model.perfume;
+import perfume.Perfumeria.model.Perfume;
 import perfume.Perfumeria.repository.InventarioRepository;
 import perfume.Perfumeria.repository.MovimientoInventarioRepository;
 
@@ -23,7 +22,6 @@ import java.time.LocalTime;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -63,7 +61,7 @@ public class ConsultaInventarioService {
     public DetalleInventarioDto obtenerDetalle(Long perfumeId){
         Inventario inventario = inventarioRepository.findById(perfumeId)
                 .orElseThrow(() -> new RecursoNoEncontradoException("No existe inventario del perfume" +  perfumeId));
-        perfume p = inventario.getPerfume();
+        Perfume p = inventario.getPerfume();
 
         BigDecimal precioVenta = BigDecimal.valueOf(p.getPrecio());
         BigDecimal costo = inventario.getCostoPromedio();
@@ -101,7 +99,7 @@ public class ConsultaInventarioService {
 
     }
 
-    public PaginaRespuesta<MovimientoDto> hisotoria(Long perfumeId, TipoMovimiento tipo, LocalDate desde, LocalDate hasta,
+    public PaginaRespuesta<MovimientoDto> historia(Long perfumeId, TipoMovimiento tipo, LocalDate desde, LocalDate hasta,
                                                     int pagina, int tamano){
 
         LocalDate hastaFinal = hasta != null ? hasta : LocalDate.now();
@@ -115,5 +113,18 @@ public class ConsultaInventarioService {
         return PaginaRespuesta.de(movimientoInventarioRepository.buscar(perfumeId, tipo, inicio, fin, pagaeable).map(MovimientoDto::de) );
 
     }
+    public List<AlertaStock> alertaStockBajo(){
+        return  inventarioRepository.buscarStockBajo().stream()
+                .map(i -> new AlertaStock(
+                        i.getPerfume().getId(), i.getCodigoUnico(),
+                        i.getPerfume().getNombre(), i.getPerfume().getMarca(),
+                        i.getStock(), i.getStockMinimo(), Math.max(0,i.getStockMinimo() - i.getStock()),
+                        EstadoStock.de(i)
+
+                ))
+                .toList();
+    }
+
+
 
 }

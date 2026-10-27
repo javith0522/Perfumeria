@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import perfume.Perfumeria.Service.perfumeriaService;
-import perfume.Perfumeria.model.perfume;
+import perfume.Perfumeria.model.Perfume;
 import perfume.Perfumeria.repository.perfumeRepository;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class perfumeController {
 
 
     @GetMapping
-    public List<perfume> getcatalogo(
+    public List<Perfume> getcatalogo(
             @RequestParam(required = false) String marca,
             @RequestParam(required = false) String categoria,
             @RequestParam(required = false) Double minPrecio,
@@ -43,7 +43,7 @@ public class perfumeController {
 
 
     @GetMapping("/buscar-ideal")
-    public List<perfume> buscarIdeal(
+    public List<Perfume> buscarIdeal(
             @RequestParam("genero") String genero,
             @RequestParam("intensidad") String intensidad,
             @RequestParam("ocasion") String ocasion
@@ -53,18 +53,18 @@ public class perfumeController {
     }
 
     @GetMapping("/seccion/{nombreSeccion}")
-    public List<perfume> getPorSeccion(@PathVariable String nombreSeccion) {
+    public List<Perfume> getPorSeccion(@PathVariable String nombreSeccion) {
         return repo.findBySeccionIgnoreCase(nombreSeccion);
     }
 
 
     @PostMapping("/guardar")
-    public ResponseEntity<perfume> guardar(@RequestBody perfume p) {
+    public ResponseEntity<Perfume> guardar(@RequestBody Perfume p) {
 
-        Optional<perfume> existente = repo.findByNombreIgnoreCase(p.getNombre());
+        Optional<Perfume> existente = repo.findByNombreIgnoreCase(p.getNombre());
 
         if (existente.isPresent()) {
-            perfume pOriginal = existente.get();
+            Perfume pOriginal = existente.get();
             // Actualizamos stock y precio
             pOriginal.setStock(pOriginal.getStock() + (p.getStock() > 0 ? p.getStock() : 0));
             pOriginal.setPrecio(p.getPrecio());
@@ -91,14 +91,14 @@ public class perfumeController {
         }
     }
     @GetMapping("/{id}")
-    public ResponseEntity<perfume> obtenerPorId(@PathVariable Long id) {
+    public ResponseEntity<Perfume> obtenerPorId(@PathVariable Long id) {
         return repo.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/actualizar/{id}")
-    public ResponseEntity<perfume> actualizar(@PathVariable Long id, @RequestBody perfume datos) {
+    public ResponseEntity<Perfume> actualizar(@PathVariable Long id, @RequestBody Perfume datos) {
         return  repo.findById(id)
                 .map(p -> {
                     p.setNombre(datos.getNombre());
@@ -136,7 +136,7 @@ public class perfumeController {
     }
 
     @PatchMapping("/{id}/stock")
-    public ResponseEntity<perfume> actualizarStock(@PathVariable Long id, @RequestBody actualizarStockRequest request) {
+    public ResponseEntity<Perfume> actualizarStock(@PathVariable Long id, @RequestBody actualizarStockRequest request) {
         return  repo.findById(id)
                 .map(p -> {
                     p.setStock(request.getStock());

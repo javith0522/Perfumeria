@@ -2,7 +2,7 @@ package perfume.Perfumeria.Dtos;
 
 import perfume.Perfumeria.enums.EstadoStock;
 import perfume.Perfumeria.model.Inventario;
-import perfume.Perfumeria.model.perfume;
+import perfume.Perfumeria.model.Perfume;
 
 import java.math.BigDecimal;
 
@@ -22,7 +22,7 @@ public record ItemInventarioDto(
         Boolean activo
 ) {
     public static ItemInventarioDto de(Inventario i) {
-        perfume p =  i.getPerfume();
+        Perfume p =  i.getPerfume();
         return  new ItemInventarioDto(
                 p.getId(),
                 i.getCodigoUnico(),

@@ -7,7 +7,7 @@ import perfume.Perfumeria.controller.ordenController;
 import perfume.Perfumeria.model.DetalleOrden;
 import perfume.Perfumeria.model.Orden;
 import perfume.Perfumeria.model.Usuario;
-import perfume.Perfumeria.model.perfume;
+import perfume.Perfumeria.model.Perfume;
 import perfume.Perfumeria.repository.ordenRepository;
 import perfume.Perfumeria.repository.perfumeRepository;
 import perfume.Perfumeria.repository.usuarioRepostery;
@@ -38,7 +38,7 @@ public class ordenService {
         double totalOrden = 0;
 
         for (ordenController.DetalleRequest item : items){
-            perfume p = perfumeRepo.findById(item.getPerfumeriaId()).orElseThrow(()->new RuntimeException("Perfume no encontrado"));
+            Perfume p = perfumeRepo.findById(item.getPerfumeriaId()).orElseThrow(()->new RuntimeException("Perfume no encontrado"));
 
             if (p.getStock() < item.getCantidad()){
                 throw new RuntimeException("Stock insuficiente para:" + p.getNombre());

@@ -26,7 +26,7 @@ public class MovimientoInventario {
 
     @ManyToOne
     @JoinColumn(name = "perfume_id", nullable = false)
-    private perfume perfume;
+    private Perfume perfume;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)

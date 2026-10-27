@@ -14,7 +14,7 @@ public class DetalleOrden {
 
     @ManyToOne
     @JoinColumn(name = "perfume_id")
-    private perfume perfume;
+    private Perfume perfume;
 
     private Integer cantidad;
     private Double precioUnitario;

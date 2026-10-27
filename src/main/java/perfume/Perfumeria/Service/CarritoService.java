@@ -11,7 +11,6 @@ import perfume.Perfumeria.repository.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,7 +41,7 @@ public class CarritoService {
     public CarritoResponse agregarItemCarrito(Long usuarioId, Long perfumeId, Integer cantidad){
         Carrito c = obtenerOcrearCarritoEntidad(usuarioId);
 
-        perfume p = perfumeRepository.findById(perfumeId)
+        Perfume p = perfumeRepository.findById(perfumeId)
                 .orElseThrow(() -> new RuntimeException("perfume no encontrado"));
 
         if (p.getStock() != null && p.getStock() < cantidad){
@@ -139,7 +138,7 @@ public class CarritoService {
                 .orElseThrow(() -> new RuntimeException("usuario no encontrado"));
 
         for (ItemCarrito item : c.getItems()){
-            perfume p = item.getPerfume();
+            Perfume p = item.getPerfume();
             if (p.getStock() != null && p.getStock() < item.getCantidad()){
                 throw new RuntimeException("stock insuficiente para:" + p.getNombre() +
                         "(disponible: " + p.getStock() + ", solicitado: " + item.getCantidad() + ")");
@@ -164,7 +163,7 @@ public class CarritoService {
         Orden guardar = ordenRepository.save(orden);
 
         for(ItemCarrito item : c.getItems()){
-            perfume p = item.getPerfume();
+            Perfume p = item.getPerfume();
             if (p.getStock() != null) {
                 p.setStock(p.getStock() - item.getCantidad());
                 perfumeRepository.save(p);

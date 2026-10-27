@@ -3,23 +3,23 @@ package perfume.Perfumeria.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import perfume.Perfumeria.model.perfume;
+import perfume.Perfumeria.model.Perfume;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface perfumeRepository extends JpaRepository<perfume,Long>
+public interface perfumeRepository extends JpaRepository<Perfume,Long>
 {
-    List<perfume> findByMarca(Long perfumeId);
-    List<perfume> findByCategoria(Long perfumeId, Integer stock);
+    List<Perfume> findByMarca(Long perfumeId);
+    List<Perfume> findByCategoria(Long perfumeId, Integer stock);
 
-    List<perfume> findByCategoriaIgnoreCase(String categoria);
-    List<perfume> findByPrecio(Double min, Double max);
-    List<perfume> findByMarcaContainingIgnoreCase(String marca);
-    List<perfume> findByCategoriaContainingIgnoreCase(String categoria);
-    List<perfume> findBySeccionIgnoreCase(String seccion);
-    Optional<perfume> findByNombreIgnoreCase(String categoria);
-    List<perfume> findByCategoriaAndIntensidadIgnoreCaseAndOcasionIgnoreCase(
+    List<Perfume> findByCategoriaIgnoreCase(String categoria);
+    List<Perfume> findByPrecio(Double min, Double max);
+    List<Perfume> findByMarcaContainingIgnoreCase(String marca);
+    List<Perfume> findByCategoriaContainingIgnoreCase(String categoria);
+    List<Perfume> findBySeccionIgnoreCase(String seccion);
+    Optional<Perfume> findByNombreIgnoreCase(String categoria);
+    List<Perfume> findByCategoriaAndIntensidadIgnoreCaseAndOcasionIgnoreCase(
             String categoria, String intensidad, String ocasion
     );
 
@@ -28,7 +28,7 @@ public interface perfumeRepository extends JpaRepository<perfume,Long>
             "LOWER(p.categoria) = LOWER(:genero) " +
             "AND (:intensidad = '' OR :intensidad IS NULL OR LOWER(p.intensidad) = LOWER(:intensidad)) " +
             "AND (:ocasion = '' OR :ocasion IS NULL OR LOWER(p.ocasion) = LOWER(:ocasion))")
-    List<perfume> findIdeal(
+    List<Perfume> findIdeal(
             @Param("genero") String genero,
             @Param("intensidad") String intensidad,
             @Param("ocasion") String ocasion

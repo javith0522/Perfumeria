@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import perfume.Perfumeria.model.DetalleOrden;
 import perfume.Perfumeria.model.Orden;
-import perfume.Perfumeria.model.perfume;
+import perfume.Perfumeria.model.Perfume;
 import perfume.Perfumeria.repository.ordenRepository;
 import perfume.Perfumeria.repository.perfumeRepository;
 
@@ -24,7 +24,7 @@ public class perfumeriaService {
         double totalCalculado = 0;
 
         for (DetalleOrden detalle : nuevaOrden.getDetalles()) {
-            perfume p = perfumeRepo.findById(detalle.getPerfume().getId())
+            Perfume p = perfumeRepo.findById(detalle.getPerfume().getId())
                     .orElseThrow(() -> new RuntimeException("Perfume no encontrado"));
 
             if (p.getStock() < detalle.getCantidad()) {
@@ -44,7 +44,7 @@ public class perfumeriaService {
 
     @Transactional
     public void venderPefume(Long id, int cantidad) {
-        perfume p = perfumeRepo.findById(id)
+        Perfume p = perfumeRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Perfume no hallado"));
 
         if (p.getStock() < cantidad) {

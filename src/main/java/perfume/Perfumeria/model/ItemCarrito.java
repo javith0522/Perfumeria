@@ -22,13 +22,13 @@ public class ItemCarrito {
 
     @ManyToOne
     @JoinColumn(name = "perfume_id")
-    private perfume perfume;
+    private Perfume perfume;
 
     private Integer cantidad;
 
     private Double precioUnitario;
 
-    public ItemCarrito(Carrito carrito, perfume perfume, Integer cantidad) {
+    public ItemCarrito(Carrito carrito, Perfume perfume, Integer cantidad) {
         this.carrito = carrito;
         this.perfume = perfume;
         this.cantidad = cantidad;
