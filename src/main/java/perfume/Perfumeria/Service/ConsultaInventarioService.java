@@ -31,7 +31,7 @@ public class ConsultaInventarioService {
     private final InventarioRepository inventarioRepository;
     private final MovimientoInventarioRepository movimientoInventarioRepository;
 
-    private ResumenInventarioDto resumen(){
+    public ResumenInventarioDto resumen(){
         List<Inventario> todos =  inventarioRepository.findAll();
         List<Inventario> activos = todos.stream().filter(i -> Boolean.TRUE.equals(i.getEstado())).toList();
 
