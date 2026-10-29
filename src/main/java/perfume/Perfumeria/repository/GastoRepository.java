@@ -7,5 +7,5 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface GastoRepository extends JpaRepository<Gasto, Long> {
-    List<Gasto> findByBetweenOrderByFechaDesc(LocalDate desde, LocalDate hasta);
+    List<Gasto> findByFechaBetweenOrderByFechaDesc(LocalDate desde, LocalDate hasta);
 }
