@@ -33,7 +33,7 @@ order by m.fechaHora desc
                                       @Param("hasta") LocalDateTime hasta,
                                       Pageable pageable);
 
-    List<MovimientoInventario> findByTipoInAndFechaHoraBetween(TipoMovimiento tipo, LocalDateTime desde, LocalDateTime hasta);
+    List<MovimientoInventario> findByTipoInAndFechaHoraBetween(List<TipoMovimiento> tipo, LocalDateTime desde, LocalDateTime hasta);
 
     @Query("""
 select m.tipo, coalesce(sum(m.cantidad), 0)

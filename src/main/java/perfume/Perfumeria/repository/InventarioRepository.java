@@ -19,7 +19,7 @@ public interface InventarioRepository extends JpaRepository<Inventario, Long> {
     Optional<Inventario> findByCodigoUnico(Long codigoUnico);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("Select i from Inventario where i.perfume.id = :perfumeId")
+    @Query("Select i from Inventario i where i.perfume.id = :perfumeId")
     Optional<Inventario> buscarParaActualizar(@Param("perfumeId") Long perfumeId);
 
     @Query("select i from Inventario i where i.estado = true and i.stock <= i.stockMinimo\n" +

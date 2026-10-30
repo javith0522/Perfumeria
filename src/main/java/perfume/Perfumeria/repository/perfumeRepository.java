@@ -24,7 +24,7 @@ public interface perfumeRepository extends JpaRepository<Perfume,Long>
     );
 
 
-    @Query("SELECT p FROM perfume p WHERE " +
+    @Query("SELECT p FROM Perfume p WHERE " +
             "LOWER(p.categoria) = LOWER(:genero) " +
             "AND (:intensidad = '' OR :intensidad IS NULL OR LOWER(p.intensidad) = LOWER(:intensidad)) " +
             "AND (:ocasion = '' OR :ocasion IS NULL OR LOWER(p.ocasion) = LOWER(:ocasion))")
