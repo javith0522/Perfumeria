@@ -6,6 +6,6 @@ import perfume.Perfumeria.model.Proveedor;
 import java.util.List;
 
 public interface ProveedorRepository extends JpaRepository<Proveedor, Long> {
-    List<Proveedor> findByActivoTrueOrderByNombreAsc(String name);
+    List<Proveedor> findByActivoTrueOrderByNombreAsc();
 
 }
